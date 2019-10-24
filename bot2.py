@@ -25,8 +25,8 @@ def info(bot,update,pass_chat_data=True):
     lista=["@xuloski","@fguzman","@emiaj","@EmiajDrake","@tornadodaniel","@kallfukeupu"]#qliaos wenos pal webeo
     bot.sendMessage(chat_id=update.message.chat_id,text="Este bot es mas vio que el "+random.choice(lista))
 
-def archivo_recibido(bot, update):
-    global esperando_archivo
+def archivo_recibido(bot, update):#esto hace que el video se respalde
+    global esperando_archivo#esta wea creo que es innecesaria
     global ruta_poner_archivo
     ruta_poner_archivo=r"C:\Users\ejemplo_de_uduario\Desktop\BOT"
     nombre_archivo = update.message.document.file_name
@@ -39,7 +39,8 @@ def archivo_recibido(bot, update):
     bot.sendMessage(chat_id=update.message.chat_id,text="Recibido!")
     update.message.reply_text("Archivo " + nombre_archivo + " posicionado en " + ruta_poner_archivo)
     esperando_archivo = 0
-
+    
+#las mierdas de abajo hacen que el bot responda a los comandos y a los mensajes
 start_handler=CommandHandler("hola",start)
 info_handler=CommandHandler("info",info)
 listener_handler=MessageHandler(Filters.text,listener)
@@ -56,5 +57,5 @@ dispatcher.add_handler(listener_handler)
 bot_updater.start_polling()
 bot_updater.idle()
 
-while True:
+while True:#esta wea hace que el archivo este ejecutandose
     pass
