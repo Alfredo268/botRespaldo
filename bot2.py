@@ -29,22 +29,22 @@ def archivo_recibido(bot, update):#esto hace que el video se respalde
     global esperando_archivo#esta wea creo que es innecesaria
     global ruta_poner_archivo
     ruta_poner_archivo=r"C:\Users\ejemplo_de_uduario\Desktop\BOT"
-    nombre_archivo = update.message.document.file_name
-    id_archivo = update.message.document.file_id
+    nombre_archivo = update.message.video.file_name
+    id_archivo = update.message.video.file_id
     archivo = bot.getFile(id_archivo)
     ruta_actual = os.getcwd()
     os.chdir(ruta_poner_archivo)
     archivo.download(nombre_archivo)
     os.chdir(ruta_poner_archivo)
     bot.sendMessage(chat_id=update.message.chat_id,text="Recibido!")
-    update.message.reply_text("Archivo " + nombre_archivo + " posicionado en " + ruta_poner_archivo)
+    update.message.reply_text("Video " + nombre_archivo + " posicionado en " + ruta_poner_archivo)
     esperando_archivo = 0
     
 #las mierdas de abajo hacen que el bot responda a los comandos y a los mensajes
 start_handler=CommandHandler("hola",start)
 info_handler=CommandHandler("info",info)
 listener_handler=MessageHandler(Filters.text,listener)
-archivo_recibido=MessageHandler(Filters.document,archivo_recibido)
+archivo_recibido=MessageHandler(Filters.video,archivo_recibido)
 
 
 dispatcher=bot_updater.dispatcher
