@@ -54,7 +54,21 @@ def archivo_recibido_documento(bot, update):#esto hace que el documento se respa
     bot.sendMessage(chat_id=update.message.chat_id,text="Recibido!")
     update.message.reply_text("Archivo " + nombre_archivo + " respaldado en " + ruta_poner_archivo)
     esperando_archivo = 0
-
+    
+def archivo_recibido_imagen(bot, update):#esto hace que las fotos se respalden 
+    global esperando_archivo
+    global ruta_poner_archivo
+    ruta_poner_archivo=r"C:\Users\Ana Victoria\Desktop\BOT"
+    nombre_archivo = update.message.photo[-1].file_id
+    id_archivo = update.message.photo[-1].file_id
+    archivo = bot.getFile(id_archivo)
+    ruta_actual = os.getcwd()
+    os.chdir(ruta_poner_archivo)
+    archivo.download(nombre_archivo)
+    os.chdir(ruta_poner_archivo)
+    bot.sendMessage(chat_id=update.message.chat_id,text="Recibido!")
+    update.message.reply_text("Imagen " + nombre_archivo + " respaldado en " + ruta_poner_archivo)
+    esperando_archivo = 0
     
 #las mierdas de abajo hacen que el bot responda a los comandos y a los mensajes
 start_handler=CommandHandler("hola",start)
@@ -62,10 +76,11 @@ info_handler=CommandHandler("info",info)
 listener_handler=MessageHandler(Filters.text,listener)
 archivo_recibido_video=MessageHandler(Filters.video,archivo_recibido_video)
 archivo_recibido_documento=MessageHandler(Filters.video,archivo_recibido_documento)
-
+archivo_recibido_imagen=MessageHandler(Filters.phtoto,archivo_recibido_imagen)
 
 dispatcher=bot_updater.dispatcher
 
+dispatcher.add_handler(archivo_recibido_imagen)
 dispatcher.add_handler(archivo_recibido_documento)
 dispatcher.add_handler(archivo_recibido_video)
 dispatcher.add_handler(start_handler)
