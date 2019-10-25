@@ -25,7 +25,7 @@ def info(bot,update,pass_chat_data=True):
     lista=["@xuloski","@fguzman","@emiaj","@EmiajDrake","@tornadodaniel","@kallfukeupu"]#qliaos wenos pal webeo
     bot.sendMessage(chat_id=update.message.chat_id,text="Este bot es mas vio que el "+random.choice(lista))
 
-def archivo_recibido(bot, update):#esto hace que el video se respalde
+def archivo_recibido_video(bot, update):#esto hace que el video se respalde
     global esperando_archivo#esta wea creo que es innecesaria
     global ruta_poner_archivo
     ruta_poner_archivo=r"C:\Users\ejemplo_de_uduario\Desktop\BOT"
@@ -40,16 +40,34 @@ def archivo_recibido(bot, update):#esto hace que el video se respalde
     update.message.reply_text("Video " + nombre_archivo + " posicionado en " + ruta_poner_archivo)
     esperando_archivo = 0
     
+def archivo_recibido_documento(bot, update):#esto hace que el documento se respalde 
+    global esperando_archivo
+    global ruta_poner_archivo
+    ruta_poner_archivo=r"C:\Users\Ana Victoria\Desktop\BOT"
+    nombre_archivo = update.message.document.file_id
+    id_archivo = update.message.document.file_id
+    archivo = bot.getFile(id_archivo)
+    ruta_actual = os.getcwd()
+    os.chdir(ruta_poner_archivo)
+    archivo.download(nombre_archivo)
+    os.chdir(ruta_poner_archivo)
+    bot.sendMessage(chat_id=update.message.chat_id,text="Recibido!")
+    update.message.reply_text("Archivo " + nombre_archivo + " respaldado en " + ruta_poner_archivo)
+    esperando_archivo = 0
+
+    
 #las mierdas de abajo hacen que el bot responda a los comandos y a los mensajes
 start_handler=CommandHandler("hola",start)
 info_handler=CommandHandler("info",info)
 listener_handler=MessageHandler(Filters.text,listener)
-archivo_recibido=MessageHandler(Filters.video,archivo_recibido)
+archivo_recibido_video=MessageHandler(Filters.video,archivo_recibido_video)
+archivo_recibido_documento=MessageHandler(Filters.video,archivo_recibido_documento)
 
 
 dispatcher=bot_updater.dispatcher
 
-dispatcher.add_handler(archivo_recibido)
+dispatcher.add_handler(archivo_recibido_documento)
+dispatcher.add_handler(archivo_recibido_video)
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(info_handler)
 dispatcher.add_handler(listener_handler)
