@@ -17,7 +17,7 @@ def listener(bot,update):
 
 def start(bot,update,pass_chat_data=True):
     update.message.chat_id
-    lista=["Wena los cabros!","Un saluoo pal leon que es terrible shoroo!","pico conchatumare","tu mama es weona y era","mas weon que las palomas"]
+    lista=["Wena los cabros!","Un saluoo pal leon que es terrible shoroo!"]
     bot.sendMessage(chat_id=update.message.chat_id,text=random.choice(lista))
 
 def info(bot,update,pass_chat_data=True):
@@ -48,7 +48,6 @@ def archivo_recibido_documento(bot, update):#esto hace que el documento se respa
     ruta_actual = os.getcwd()
     os.chdir(ruta_poner_archivo)
     archivo.download(nombre_archivo)
-    bot.sendMessage(chat_id=update.message.chat_id,text="recibido!")
     os.chdir(ruta_poner_archivo)
     esperando_archivo = 0
 
