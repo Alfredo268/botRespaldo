@@ -29,7 +29,7 @@ def archivo_recibido(bot, update):#esto hace que el videeo se respalde
     global esperando_archivo
     global ruta_poner_archivo
     ruta_poner_archivo="/home/ubuntu/botsito"
-    nombre_archivo = update.message.video.file_id
+    nombre_archivo = update.message.video.file_name
     id_archivo = update.message.video.file_id
     archivo = bot.getFile(id_archivo)
     ruta_actual = os.getcwd()
@@ -42,7 +42,7 @@ def archivo_recibido_documento(bot, update):#esto hace que el documento se respa
     global esperando_archivo
     global ruta_poner_archivo
     ruta_poner_archivo="/home/ubuntu/botsito"
-    nombre_archivo = update.message.document.file_id
+    nombre_archivo = update.message.document.file_name
     id_archivo = update.message.document.file_id
     archivo = bot.getFile(id_archivo)
     ruta_actual = os.getcwd()
@@ -55,7 +55,7 @@ def archivo_recibido_imagen(bot, update):#esto hace que las fotos se respalden
     global esperando_archivo
     global ruta_poner_archivo
     ruta_poner_archivo="/home/ubuntu/botsito"
-    nombre_archivo = update.message.photo[-1].file_id
+    nombre_archivo = update.message.photo[-1].file_name
     id_archivo = update.message.photo[-1].file_id
     archivo = bot.getFile(id_archivo)
     ruta_actual = os.getcwd()
