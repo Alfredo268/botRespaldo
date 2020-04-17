@@ -7,7 +7,7 @@ import sys
 import numbers
 import subprocess
 
-bot=telegram.Bot(token="1042434005:AAGaDNJedoEBLuy1qlShcgZR5mLh0EUWkXE")
+bot=telegram.Bot(token="TU_TOKEN_BOT")
 bot_updater=Updater(bot.token)
 
 def listener(bot,update):
@@ -22,13 +22,13 @@ def start(bot,update,pass_chat_data=True):
 
 def info(bot,update,pass_chat_data=True):
     update.message.chat_id
-    lista=["@xuloski","@fguzman","@emiaj","@EmiajDrake","@tornadodaniel","@kallfukeupu"]#qliaos wenos pal webeo
+    lista=["@xuloski","@rootql","@emiaj","@EmiajDrake","@tornadodaniel","@kallfukeupu"]#qliaos wenos pal webeo
     bot.sendMessage(chat_id=update.message.chat_id,text="Este bot es mas vio que el "+random.choice(lista))
 
 def archivo_recibido(bot, update):#esto hace que el videeo se respalde 
     global esperando_archivo
     global ruta_poner_archivo
-    ruta_poner_archivo="/home/ubuntu/botsito"
+    ruta_poner_archivo="/home/tu_usuario/"
     nombre_archivo = update.message.video.file_name
     id_archivo = update.message.video.file_id
     archivo = bot.getFile(id_archivo)
@@ -41,7 +41,7 @@ def archivo_recibido(bot, update):#esto hace que el videeo se respalde
 def archivo_recibido_documento(bot, update):#esto hace que el documento se respalde 
     global esperando_archivo
     global ruta_poner_archivo
-    ruta_poner_archivo="/home/ubuntu/botsito"
+    ruta_poner_archivo="/home/tu_usuario/"
     nombre_archivo = update.message.document.file_name
     id_archivo = update.message.document.file_id
     archivo = bot.getFile(id_archivo)
@@ -54,7 +54,7 @@ def archivo_recibido_documento(bot, update):#esto hace que el documento se respa
 def archivo_recibido_imagen(bot, update):#esto hace que las fotos se respalden 
     global esperando_archivo
     global ruta_poner_archivo
-    ruta_poner_archivo="/home/ubuntu/botsito"
+    ruta_poner_archivo="/home/tu_usuario/"
     nombre_archivo = update.message.photo[-1].file_name
     id_archivo = update.message.photo[-1].file_id
     archivo = bot.getFile(id_archivo)
