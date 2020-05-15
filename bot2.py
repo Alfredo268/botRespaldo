@@ -14,7 +14,7 @@ def listener(bot,update):
     id=update.message.chat_id
     mensaje=update.message.text
     print("ID: "+str(id)+" Mensaje: "+ mensaje)
-
+    
 def start(bot,update,pass_chat_data=True):
     update.message.chat_id
     lista=["Wena los cabros!","Un saluoo pal leon que es terrible shoroo!"]
@@ -28,8 +28,8 @@ def info(bot,update,pass_chat_data=True):
 def archivo_recibido(bot, update):#esto hace que el videeo se respalde 
     global esperando_archivo
     global ruta_poner_archivo
-    ruta_poner_archivo="/home/tu_usuario/"
-    nombre_archivo = update.message.video.file_name
+    ruta_poner_archivo="/home/tu_usuario/"#la ruta de tu carpeta owncloud o donde quieras
+    nombre_archivo = update.message.video.file_id+".mp4"
     id_archivo = update.message.video.file_id
     archivo = bot.getFile(id_archivo)
     ruta_actual = os.getcwd()
@@ -37,12 +37,14 @@ def archivo_recibido(bot, update):#esto hace que el videeo se respalde
     archivo.download(nombre_archivo)
     os.chdir(ruta_poner_archivo)
     esperando_archivo = 0
+    subprocess.call('cd /var/www/owncloud/ ; sudo -u www-data php occ files:scan --all', shell=True)#comando para que se guarde el video en owncloud
 
 def archivo_recibido_documento(bot, update):#esto hace que el documento se respalde 
     global esperando_archivo
     global ruta_poner_archivo
-    ruta_poner_archivo="/home/tu_usuario/"
-    nombre_archivo = update.message.document.file_name
+    ruta_poner_archivo="/home/tu_usuario/"#la ruta de tu carpeta owncloud o donde quieras
+    nombre_archivo = (update.message.document.file_name.split)('.')
+    nombre_archivo_con_id=nombre_archivo[0]+'_'+update.message.document.file_id+'.'+nombre_archivo[1]
     id_archivo = update.message.document.file_id
     archivo = bot.getFile(id_archivo)
     ruta_actual = os.getcwd()
@@ -50,12 +52,13 @@ def archivo_recibido_documento(bot, update):#esto hace que el documento se respa
     archivo.download(nombre_archivo)
     os.chdir(ruta_poner_archivo)
     esperando_archivo = 0
+    subprocess.call('cd /var/www/owncloud/ ; sudo -u www-data php occ files:scan --all', shell=True)#comando para que el documento se guarde en owncloud
 
 def archivo_recibido_imagen(bot, update):#esto hace que las fotos se respalden 
     global esperando_archivo
     global ruta_poner_archivo
-    ruta_poner_archivo="/home/tu_usuario/"
-    nombre_archivo = update.message.photo[-1].file_name
+    ruta_poner_archivo="/home/tu_usuario/"#la ruta de tu carpeta owncloud o donde quieras
+    nombre_archivo = update.message.photo[-1].file_id+".jpg"
     id_archivo = update.message.photo[-1].file_id
     archivo = bot.getFile(id_archivo)
     ruta_actual = os.getcwd()
@@ -63,6 +66,7 @@ def archivo_recibido_imagen(bot, update):#esto hace que las fotos se respalden
     archivo.download(nombre_archivo)
     os.chdir(ruta_poner_archivo)
     esperando_archivo = 0
+    subprocess.call('cd /var/www/owncloud/ ; sudo -u www-data php occ files:scan --all', shell=True)#comando para que el documento se guarde en owncloud
 
 start_handler=CommandHandler("hola",start)
 info_handler=CommandHandler("info",info)
